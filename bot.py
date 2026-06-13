@@ -21,21 +21,19 @@ def get_weather(city: str = "Thiruvananthapuram") -> str:
 
 def get_quote() -> str:
     """
-    Fetches a random motivational quote from the zenquotes.io API.
+    Fetches a random motivational quote from the dummyjson API.
     
     Returns:
         str: A formatted string containing the quote and the author.
     """
     try:
-        url = "https://zenquotes.io/api/random"
+        url = "https://dummyjson.com/quotes/random"
         response = requests.get(url, timeout=10)
         response.raise_for_status()
         data = response.json()
-        if isinstance(data, list) and len(data) > 0:
-            quote = data[0].get("q", "Keep moving forward.")
-            author = data[0].get("a", "Unknown")
-            return f'"{quote}"\n— {author}'
-        raise ValueError("Invalid response format")
+        quote = data.get("quote", "Keep moving forward.")
+        author = data.get("author", "Unknown")
+        return f'"{quote}"\n— {author}'
     except Exception:
         return '"Keep moving forward."\n— Unknown'
 
